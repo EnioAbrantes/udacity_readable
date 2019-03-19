@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux'
+import { handleInitialCategories } from './actions/shared'
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(handleInitialCategories())
+  }
+  
   render() {
     return (
       <div className="App">
@@ -25,4 +32,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);
