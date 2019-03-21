@@ -1,8 +1,9 @@
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
 
-export function receiveCategories (categories){
+export function receiveCategories (name, path){
     return {
         type : RECEIVE_CATEGORIES,
-        categories,
+        name,
+        path,
     }
 }

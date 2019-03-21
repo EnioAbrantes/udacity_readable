@@ -13,10 +13,20 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <p>{this.props.name}</p>
         </header>
       </div>
     );
   }
 }
 
-export default connect()(App);
+
+function mapStateToProps({ categories }){
+  console.log('categoriesxxx' + categories.name)
+  return {
+    name : categories.name
+  }
+
+}
+
+export default connect(mapStateToProps)(App);

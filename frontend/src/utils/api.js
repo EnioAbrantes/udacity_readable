@@ -7,5 +7,6 @@ var myInit = { method: 'GET',
 
 export function getCategories () {
     return fetch(`http://localhost:3001/categories`,myInit)
-      .then(data => data.json())
-  }
+      .then(categories => categories.json())
+}
+
