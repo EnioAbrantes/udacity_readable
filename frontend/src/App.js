@@ -13,8 +13,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>{this.props.name}</p>
-        </header>
+          <p>{this.props.categories}</p>
+        
+        </header> 
       </div>
     );
   }
@@ -22,9 +23,10 @@ class App extends Component {
 
 
 function mapStateToProps({ categories }){
-  console.log('categoriesxxx' + categories.name)
+  console.log(categories[0])
+  var x = JSON.stringify(categories.categories)
   return {
-    name : categories.name
+    categories : x
   }
 
 }

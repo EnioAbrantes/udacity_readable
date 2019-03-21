@@ -6,11 +6,9 @@ import { receivePosts } from '../actions/posts'
 
 export function handleInitialCategories () {
   return (dispatch) => {
-    console.log(getCategories())
     return getCategories()
-      .then(({ name, path }) => {
-        
-        dispatch(receiveCategories(name, path))
+      .then(({ categories }) => {
+        dispatch(receiveCategories(categories))
       })
   }
 } 
