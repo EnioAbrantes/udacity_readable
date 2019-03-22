@@ -6,7 +6,12 @@ var myInit = { method: 'GET',
                headers: myHeaders};
 
 export function getCategories () {
-    return fetch(`http://localhost:3001/categories`,myInit)
+    return fetch(`${server}/categories`,myInit)
       .then(categories => categories.json())
+}
+
+export function getPosts () {
+  return fetch(`${server}/posts`,myInit)
+    .then(posts => posts.json())
 }
 
