@@ -82,7 +82,8 @@ ul, ol, li {
 
 .icon-value{
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .body-post{

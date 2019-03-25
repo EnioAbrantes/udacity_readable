@@ -1,33 +1,60 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { handlePostVote } from '../actions/posts'
 import { Card, CardTitle, CardText } from 'reactstrap';
-import { FaCommentAlt, FaRegHandPeace, FaTh } from "react-icons/fa";
+import './App.css';
+import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh } from "react-icons/fa";
 
-const Post = (props) => {
-    return (
-        <ul>
-            {props.posts.map((comment) =>
-              <li className="comment-card">
-                <Card body outline color="primary">
-                    <CardTitle className="title"> {comment.title}</CardTitle>
-                    <CardText className="author">{comment.author}
-                            <div className="icon-category ">
-                                <FaTh className="icon"/> 
-                                <div className="icon-value">{comment.category} </div>
-                            </div>
-                    </CardText>
+class Post extends Component {
 
-                    <CardText className="body-post">{comment.body}</CardText>
-                    <div className="icons-votes">
-                            <FaCommentAlt className="icon"/> 
-                            <div className="icon-value">{comment.commentCount} </div>
-                            <FaRegHandPeace className="icon"/>
-                            <div className="icon-value">{comment.voteScore} </div>
-                    </div>
-                </Card>
-              </li>
-            )}
-        </ul> 
-    )
+    handleVote = (e, vote) => {
+        console.log(e);
+        /* dispatch(handlePostVote({
+            id: tweet.id,
+            hasLiked: tweet.hasLiked,
+            authedUser
+        })) */
+    }
+    render(){
+        return (
+            <ul>
+                {this.props.posts.map((comment) =>
+                <li className="comment-card">
+                    <Card body outline color="primary">
+                        <CardTitle className="title"> {comment.title}</CardTitle>
+                        <CardText className="author">{comment.author}
+                                <div className="icon-category ">
+                                    <FaTh className="icon"/> 
+                                    <div className="icon-value">{comment.category} </div>
+                                </div>
+                        </CardText>
+
+                        <CardText className="body-post">{comment.body}</CardText>
+                        <div className="icons-votes">
+                                <FaCommentAlt className="icon"/> 
+                                <div className="icon-value" onClick={ (e) => this.handleVote(e,"upVote")}>{comment.commentCount} </div>
+                                <FaRegHandPointUp className="icon"/>
+                                <div className="icon-value" onClick={ (e) => this.handleVote(e, "downVote")}>{comment.voteScore} </div>
+                                <FaRegHandPointDown />
+                                
+                        </div>
+                    </Card>
+                </li>
+                )}
+            </ul> 
+        )
+    }
 }
 
-export default Post;
+function mapStateToProps ({}) {
+    /* const tweet = tweets[id]
+    const parentTweet = tweet ? tweets[tweet.replyingTo] : null
+    return {
+      authedUser,
+      tweet: tweet
+        ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
+        : null
+    } */
+  }
+
+export default connect(mapStateToProps)(Post);
