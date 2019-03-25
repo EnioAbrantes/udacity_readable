@@ -1,0 +1,91 @@
+.App {
+  font-family: 'Slabo 27px', serif;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Header-center{
+  text-align: center
+}
+
+.comment-card {
+  width: 100%;
+  display: inline-block;
+}
+
+.inlineInfo{
+  display: inline-flex;
+}
+
+ul, ol, li {
+  list-style: none;
+  margin-top: 3%;
+}
+
+.title{
+  text-align: center;
+  font-size: 25px;
+}
+
+.categories{
+  width: 60%;
+  text-align: center;
+}
+
+.author{
+  margin-left: 10px;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.icons-votes{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icon-category{
+  display: inline-block;
+  float: right;
+}
+
+.icon{
+  margin-left: 15px;
+}
+
+.icon-value{
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.body-post{
+  text-align: center;
+}
+  
