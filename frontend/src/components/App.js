@@ -48,7 +48,7 @@ class App extends Component {
 
 
 function mapStateToProps({ categories, posts }){
-  /* console.log("PPC"+ postsPerCategory) */
+  console.log("PPC"+ posts)
   return {
     categories : Object.values(categories),
     posts : Object.values(posts)

@@ -16,7 +16,6 @@ export default function posts (state = {}, action) {
       console.log('action' + action.postsPerCategory)
       return {
         ...state,
-        ...action.postsPerCategory
       }
     default :
       return state
