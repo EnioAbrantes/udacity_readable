@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handlePostVote } from '../actions/posts'
 import { Card, CardTitle, CardText } from 'reactstrap';
-import './App.css';
 import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh } from "react-icons/fa";
 
 class Post extends Component {
 
-    handleVote = (e, vote) => {
+    showComments = (e) => {
         console.log(e);
         /* dispatch(handlePostVote({
             id: tweet.id,
@@ -31,11 +30,11 @@ class Post extends Component {
 
                         <CardText className="body-post">{comment.body}</CardText>
                         <div className="icons-votes">
-                                <FaCommentAlt className="icon"/> 
-                                <div className="icon-value" onClick={ (e) => this.handleVote(e,"upVote")}>{comment.commentCount} </div>
+                                <FaCommentAlt className="icon" onClick={ (e) => this.showComments(e)} /> 
+                                <div className="icon-value" onClick={ (e) => this.showComments(e)}>{comment.commentCount} </div>
                                 <FaRegHandPointUp className="icon"/>
                                 <div className="icon-value" onClick={ (e) => this.handleVote(e, "downVote")}>{comment.voteScore} </div>
-                                <FaRegHandPointDown />
+                                <FaRegHandPointDown className="icon"/>
                                 
                         </div>
                     </Card>

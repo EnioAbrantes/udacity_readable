@@ -1,14 +1,79 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Slabo 27px', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.App-link {
+  color: #61dafb;
 }
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Header-center{
+  text-align: center
+}
+
+.comment-card {
+  width: 600px;
+  display: block;
+}
+
+.inlineInfo{
+  display: inline-flex;
+}
+
+ul, ol, li {
+  list-style: none;
+  margin-top: 3%;
+}
+
+.title{
+  text-align: center;
+  font-size: 25px;
+}
+
+.categories{
+  width: 300px;
+  text-align: center;
+}
+
+.author{
+  margin-left: 10px;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.icons-votes{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icon-category{
+  display: inline-block;
+  float: right;
+}
+
+.icon{
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.icon-value{
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.body-post{
+  text-align: center;
+}
+  

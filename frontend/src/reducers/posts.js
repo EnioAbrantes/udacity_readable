@@ -15,7 +15,7 @@ export default function posts (state = {}, action) {
     case RECEIVE_POSTS_CATEGORIES :
       console.log('action' + action.postsPerCategory)
       return {
-        ...state,
+        ...action.postsPerCategory,
       }
     default :
       return state

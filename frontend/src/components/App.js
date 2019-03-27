@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { connect } from 'react-redux'
 import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
 import Post from './Post'
@@ -18,6 +17,8 @@ class App extends Component {
     console.log(e.target.value)
     this.props.dispatch(handlePostsFromCategory(e.target.value))
   }
+
+
   
   render() {
     return (
@@ -25,6 +26,7 @@ class App extends Component {
 
         <header className="Header-center">
           <h1>Posts</h1>
+          <Button style={{width: '50%'}} outline color="primary" size="lg" >New Post</Button>
         </header> 
         <div className="inlineInfo">
           
