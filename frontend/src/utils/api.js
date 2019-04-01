@@ -23,7 +23,17 @@ export function setPostVote (vote) {
     .then(posts => posts.json())
 }
 
+export function savePost (post) {
+  console.log("postt" + Object.values(post))
+  myInitPost= {...myInitPost, body: JSON.stringify(post)};
+  console.log("myinnit" + myInitPost.body)
+  return fetch(`${server}/posts`,myInitPost)
+  .then(res => res.json())
+  .then(data => data)
+}
+
 export function getPostsFromCategory (categorie) {
   return fetch(`${server}/${categorie}/posts`,myInit)
     .then(posts => posts.json())
 }
+

@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, VOTE_POSTS, RECEIVE_POSTS_CATEGORIES } from '../actions/posts'
+import { RECEIVE_POSTS, VOTE_POSTS, RECEIVE_POSTS_CATEGORIES, ADD_POST } from '../actions/posts'
 
 export default function posts (state = {}, action) {
   switch(action.type) {
@@ -17,6 +17,13 @@ export default function posts (state = {}, action) {
       return {
         ...action.postsPerCategory,
       }
+    case ADD_POST :
+      const { post } = action
+
+      return {
+        ...state,
+        ...action.post,
+      }  
     default :
       return state
   }
