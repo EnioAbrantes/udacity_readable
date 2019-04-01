@@ -1,5 +1,11 @@
 const server = 'http://localhost:3001'
 
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'Authorization': 'application/json'
+}
+
 var myHeaders = new Headers({Authorization : 'EnioAbrantes'});
 
 var myInit = { method: 'GET',
@@ -24,10 +30,14 @@ export function setPostVote (vote) {
 }
 
 export function savePost (post) {
-  console.log("postt" + Object.values(post))
-  myInitPost= {...myInitPost, body: JSON.stringify(post)};
-  console.log("myinnit" + myInitPost.body)
-  return fetch(`${server}/posts`,myInitPost)
+  myInitPost = {...myInitPost, body: JSON.stringify(post)};
+  return fetch(`${server}/posts`,{ 
+    method: 'post',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify(post)
+  })
   .then(res => res.json())
   .then(data => data)
 }

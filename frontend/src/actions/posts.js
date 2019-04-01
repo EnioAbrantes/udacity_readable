@@ -78,7 +78,10 @@ export function handlePostsFromCategory (category) {
         author,
         category
       })
-        .then((post) => dispatch(addPost(post)))
+        .then((post) => {
+            console.log("newpost"+ post.voteScore)
+            dispatch(addPost(post))
+        })
         .then(() => dispatch(hideLoading()))
     }
   }
