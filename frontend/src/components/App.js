@@ -4,6 +4,7 @@ import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
 import Post from './Post'
 import { Button } from 'reactstrap';
 import { handlePostsFromCategory } from '../actions/posts'
+import { FaHome } from "react-icons/fa";
 import NewPost from './NewPost'
 
 class App extends Component {
@@ -24,7 +25,31 @@ class App extends Component {
   render() {
     return (
       
-      <NewPost/>
+      <div className="App">
+
+        <header >
+          <div>
+            <FaHome/>
+          </div>
+          <h1>Posts</h1>
+          <Button style={{width: '50%'}} outline color="primary" size="lg" >New Post</Button>
+        </header> 
+        <div className="inlineInfo">
+          
+          <ul className='categories'>
+            <h2>Categories</h2>
+            {this.props.categories.map((categorie) =>
+              <li>
+                <Button style={{width: '100%'}} onClick={ (e) => this.handleCategories(e)} outline color="primary" size="lg" value={categorie.name} >{categorie.name}</Button>
+              </li>
+            )}
+          </ul> 
+          <Post posts = {this.props.posts}/>
+        </div>
+
+
+
+      </div>
     );
   }
 }

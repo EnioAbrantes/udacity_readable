@@ -61,6 +61,7 @@ ul, ol, li {
 .icon-category{
   display: inline-block;
   float: right;
+  font-size: 18px;
 }
 
 .icon{

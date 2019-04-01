@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handlePostVote } from '../actions/posts'
 import { Card, CardTitle, CardText } from 'reactstrap';
-import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh } from "react-icons/fa";
+import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 class Post extends Component {
 
@@ -20,9 +20,17 @@ class Post extends Component {
                 {this.props.posts.map((comment) =>
                 <li className="comment-card">
                     <Card body outline color="primary">
-                        <CardTitle className="title"> {comment.title}</CardTitle>
+                        <CardTitle className="title">
+                            <CardText>
+                                <div className="icon-category">
+                                    <FaRegEdit className='icon'/> 
+                                    <FaRegTrashAlt className='icon'/> 
+                                </div>
+                            </CardText>
+                            {comment.title}
+                         </CardTitle>
                         <CardText className="author">{comment.author}
-                                <div className="icon-category ">
+                                <div className="icon-category">
                                     <FaTh className="icon"/> 
                                     <div className="icon-value">{comment.category} </div>
                                 </div>
