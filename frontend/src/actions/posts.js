@@ -1,10 +1,11 @@
-import { setPostVote, getPostsFromCategory, savePost } from '../utils/api'
+import { setPostVote, getPostsFromCategory, savePost, deletePost } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const VOTE_POSTS = 'VOTE_POSTS'
 export const RECEIVE_POSTS_CATEGORIES = 'RECEIVE_POSTS_CATEGORIES'
 export const ADD_POST = 'ADD_POST'
+export const REMOVE_POST = 'REMOVE_POST'
 
 export function receivePosts (posts){
     return {
@@ -81,6 +82,28 @@ export function handlePostsFromCategory (category) {
         .then((post) => {
             console.log("newpost"+ post.voteScore)
             dispatch(addPost(post))
+        })
+        .then(() => dispatch(hideLoading()))
+    }
+  }
+
+  function removePost (id) {
+    return {
+      type: REMOVE_POST,
+      id,
+    }
+  }
+
+  export function handleDeletePost (id) {
+    return (dispatch) => {
+    
+      dispatch(showLoading())
+      return deletePost(
+        id
+      )
+        .then((post) => {
+            console.log("newpost"+ post)
+            dispatch(removePost(post.id))
         })
         .then(() => dispatch(hideLoading()))
     }

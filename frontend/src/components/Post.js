@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { handlePostVote } from '../actions/posts'
+import { handlePostVote, handleDeletePost } from '../actions/posts'
 import { Card, CardTitle, CardText } from 'reactstrap';
 import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
@@ -19,6 +19,11 @@ class Post extends Component {
         })) */
     }
 
+    handleRemovePost = (id) => {
+        console.log('post'+ id)
+        this.props.dispatch(handleDeletePost(id))
+    }
+
 
     render(){
         console.log("posts2" + this.props.posts2)
@@ -32,7 +37,7 @@ class Post extends Component {
                             <CardText>
                                 <div className="icon-category">
                                     <FaRegEdit className='icon'/> 
-                                    <FaRegTrashAlt className='icon'/> 
+                                    <FaRegTrashAlt onClick={() => this.handleRemovePost(comment.id)} className='icon'/> 
                                 </div>
                             </CardText>
                             {comment.title}

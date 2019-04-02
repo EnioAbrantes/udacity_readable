@@ -6,21 +6,23 @@ const headers = {
   'Authorization': 'application/json'
 }
 
-var myHeaders = new Headers({Authorization : 'EnioAbrantes'});
-
-var myInit = { method: 'GET',
-               headers: myHeaders};
-
-var myInitPost = { method: 'POST',
-               headers: myHeaders};
-
 export function getCategories () {
-    return fetch(`${server}/categories`,myInit)
+    return fetch(`${server}/categories`,{ 
+      method: 'get',
+      headers: {
+        ...headers,
+      }
+    })
       .then(categories => categories.json())
 }
 
 export function getPosts () {
-  return fetch(`${server}/posts`,myInit)
+  return fetch(`${server}/posts`,{ 
+    method: 'get',
+    headers: {
+      ...headers,
+    }
+  })
     .then(posts => posts.json())
 }
 
@@ -37,7 +39,6 @@ export function setPostVote (option) {
 }
 
 export function savePost (post) {
-  myInitPost = {...myInitPost, body: JSON.stringify(post)};
   return fetch(`${server}/posts`,{ 
     method: 'post',
     headers: {
@@ -50,7 +51,23 @@ export function savePost (post) {
 }
 
 export function getPostsFromCategory (categorie) {
-  return fetch(`${server}/${categorie}/posts`,myInit)
+  return fetch(`${server}/${categorie}/posts`,{ 
+    method: 'get',
+    headers: {
+      ...headers,
+    }
+  })
     .then(posts => posts.json())
+}
+
+export function deletePost (id) {
+  return fetch(`${server}/posts/${id}`,{ 
+    method: 'delete',
+    headers: {
+      ...headers,
+    }
+  })
+    .then(posts => posts.json())
+    .then(data => data)
 }
 
