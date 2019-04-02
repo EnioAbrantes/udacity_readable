@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
 import Post from './Post'
-import { Button } from 'reactstrap';
+import { Button, Nav, NavItem, NavLink } from 'reactstrap';
 import { handlePostsFromCategory } from '../actions/posts'
 import { FaHome } from "react-icons/fa";
 import NewPost from './NewPost'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class App extends Component {
 
@@ -20,19 +21,20 @@ class App extends Component {
     this.props.dispatch(handlePostsFromCategory(e.target.value))
   }
 
-
-  
   render() {
     return (
       
       <div className="App">
 
         <header >
-          <div>
-            <FaHome/>
-          </div>
-          <h1>Posts</h1>
-          <Button style={{width: '50%'}} outline color="primary" size="lg" >New Post</Button>
+          <Nav className="nav-options">
+            <NavItem>
+              <NavLink href="#">Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="#">Add Post</NavLink>
+            </NavItem>
+          </Nav>
         </header> 
         <div className="inlineInfo">
           

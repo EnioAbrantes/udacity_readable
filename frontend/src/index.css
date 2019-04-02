@@ -20,7 +20,8 @@ body {
 }
 
 .Header-center{
-  text-align: center
+  text-align: center;
+  margin-top: 10px;
 }
 
 .comment-card {
@@ -43,6 +44,7 @@ ul, ol, li {
 }
 
 .categories{
+  margin-top: 30px;
   width: 300px;
   text-align: center;
 }
@@ -76,5 +78,9 @@ ul, ol, li {
 
 .body-post{
   text-align: center;
+}
+
+.nav-options{
+  margin-left: 10%;
 }
   

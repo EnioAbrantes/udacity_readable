@@ -13,19 +13,19 @@ export function receivePosts (posts){
     }
 }
 
-function postVote ({ id, vote}) {
+function postVote (option) {
     return {
       type: VOTE_POSTS,
-      id,
-      vote,
+      option,
     }
   }
   
 export function handlePostVote (info) {
     return (dispatch) => {
         dispatch(postVote(info))
-
+        console.log("info" + info.id)
         return setPostVote(info)
+        .then((post) => dispatch(postVote(post)))
         .catch((e) => {
             console.warn('Error in handlePostVote: ', e)
             dispatch(postVote(info))

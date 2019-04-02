@@ -6,17 +6,25 @@ import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, Fa
 
 class Post extends Component {
 
-    showComments = (e) => {
-        console.log(e);
+    handleVote = (id, vote) => {
+        console.log(id + vote);
+        this.props.dispatch(handlePostVote({
+            id : id,
+            vote : vote
+        }))
         /* dispatch(handlePostVote({
             id: tweet.id,
             hasLiked: tweet.hasLiked,
             authedUser
         })) */
     }
+
+
     render(){
+        console.log("posts2" + this.props.posts2)
         return (
             <ul>
+                <h1 className="Header-center">Posts</h1>
                 {this.props.posts.map((comment) =>
                 <li className="comment-card">
                     <Card body outline color="primary">
@@ -38,11 +46,11 @@ class Post extends Component {
 
                         <CardText className="body-post">{comment.body}</CardText>
                         <div className="icons-votes">
-                                <FaCommentAlt className="icon" onClick={ (e) => this.showComments(e)} /> 
-                                <div className="icon-value" onClick={ (e) => this.showComments(e)}>{comment.commentCount} </div>
-                                <FaRegHandPointUp className="icon"/>
-                                <div className="icon-value" onClick={ (e) => this.handleVote(e, "downVote")}>{comment.voteScore} </div>
-                                <FaRegHandPointDown className="icon"/>
+                                <FaCommentAlt className="icon"/> 
+                                <div className="icon-value">{comment.commentCount} </div>
+                                <FaRegHandPointUp onClick={() => this.handleVote(comment.id, "upVote")} className="icon"/>
+                                <div className="icon-value">{comment.voteScore} </div>
+                                <FaRegHandPointDown onClick={() => this.handleVote(comment.id, "downVote")} className="icon"/>
                                 
                         </div>
                     </Card>
@@ -53,15 +61,11 @@ class Post extends Component {
     }
 }
 
-function mapStateToProps ({}) {
-    /* const tweet = tweets[id]
-    const parentTweet = tweet ? tweets[tweet.replyingTo] : null
-    return {
-      authedUser,
-      tweet: tweet
-        ? formatTweet(tweet, users[tweet.author], authedUser, parentTweet)
-        : null
-    } */
+function mapStateToProps ({posts}) {
+    console.log("mapstate" + posts)
+    return ({
+        posts2 : posts
+    })
   }
 
 export default connect(mapStateToProps)(Post);

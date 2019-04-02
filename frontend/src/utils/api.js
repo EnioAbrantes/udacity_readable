@@ -24,9 +24,16 @@ export function getPosts () {
     .then(posts => posts.json())
 }
 
-export function setPostVote (vote) {
-  return fetch(`${server}/posts/${vote}`,myInitPost)
-    .then(posts => posts.json())
+export function setPostVote (option) {
+  console.log("voteapi" + option.vote)
+  return fetch(`${server}/posts/${option.id}`,{ 
+    method: 'post',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify({option : option.vote})
+  })
+    .then(res => res.json())
 }
 
 export function savePost (post) {

@@ -8,9 +8,9 @@ export default function posts (state = {}, action) {
         ...action.posts
       }
     case VOTE_POSTS :
+      console.log("votee" + action.option)
       return {
-        ...state,
-        ...action.id,
+        ...state
       }
     case RECEIVE_POSTS_CATEGORIES :
       console.log('action' + action.postsPerCategory)
