@@ -8,12 +8,10 @@ export default function posts (state = {}, action) {
         ...action.posts
       }
     case VOTE_POSTS :
-      console.log("votee" + action.option)
-      return {
-        ...state
-      }
+      return Object.values(state).map((post) => (
+        post.id === action.post.id? action.post : post
+      ))
     case RECEIVE_POSTS_CATEGORIES :
-      console.log('action' + action.postsPerCategory)
       return {
         ...action.postsPerCategory,
       }

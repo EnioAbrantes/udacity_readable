@@ -14,10 +14,10 @@ export function receivePosts (posts){
     }
 }
 
-function postVote (option) {
+function postVote (post) {
     return {
       type: VOTE_POSTS,
-      option,
+      post,
     }
   }
   

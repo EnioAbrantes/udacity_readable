@@ -19,8 +19,8 @@ class Post extends Component {
         })) */
     }
 
-    handleRemovePost = (id) => {
-        console.log('post'+ id)
+    handleRemovePost = (e, id) => {
+        e.preventDefault();
         this.props.dispatch(handleDeletePost(id))
     }
 
