@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
-import { Button } from 'reactstrap';
+import { Button, Col } from 'reactstrap';
 import Post from './Post'
 import { handlePostsFromCategory } from '../actions/posts'
 
@@ -19,14 +19,16 @@ class Container extends Component {
     render(){
         return (
             <div className="inlineInfo">
-                <ul className='categories'>
-                <h2>Categories</h2>
-                {this.props.categories.map((categorie) =>
-                    <li>
-                    <Button style={{width: '100%'}} onClick={ (e) => this.handleCategories(e)} outline color="primary" size="lg" value={categorie.name} >{categorie.name}</Button>
-                    </li>
-                )}
-                </ul> 
+                <Col sm="3" md={{ size: 2, offset: 1}}>
+                    <ul className='categories'>
+                        <h2>Categories</h2>
+                        {this.props.categories.map((categorie) =>
+                            <li>
+                            <Button style={{width: '100%'}} onClick={ (e) => this.handleCategories(e)} outline color="primary" size="lg" value={categorie.name} >{categorie.name}</Button>
+                            </li>
+                        )}
+                    </ul> 
+                </Col>    
                 <Post posts = {this.props.posts}/>
             </div>
         )

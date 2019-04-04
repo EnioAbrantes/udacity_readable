@@ -1,76 +1,84 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handlePostVote, handleDeletePost } from '../actions/posts'
-import { Card, CardTitle, CardText } from 'reactstrap';
+import { Card, CardTitle, CardText, Col } from 'reactstrap';
 import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { recoverDate } from '../utils/RecoverDate'
 
 class Post extends Component {
 
-    handleVote = (id, vote) => {
-        console.log(id + vote);
-        this.props.dispatch(handlePostVote({
-            id : id,
-            vote : vote
-        }))
-        /* dispatch(handlePostVote({
-            id: tweet.id,
-            hasLiked: tweet.hasLiked,
-            authedUser
-        })) */
+    handleVote = (e, id, vote) => {
+        this.props.handlePostVote(id, vote)
     }
 
-    handleRemovePost = (e, id) => {
-        e.preventDefault();
-        this.props.dispatch(handleDeletePost(id))
+    handleRemovePost = (id) => {
+        this.props.handleDeletePost(id)
     }
 
+    showDate = (timestamp) => {
+        var date = new Date(timestamp*1000);
+        // Hours part from the timestamp
+        var hours = date.getHours();
+        // Minutes part from the timestamp
+        var minutes = "0" + date.getMinutes();
+        // Seconds part from the timestamp
+        var seconds = "0" + date.getSeconds();
+
+        // Will display time in 10:30:23 format
+        return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+    }
 
     render(){
-        console.log("posts2" + this.props.posts2)
         return (
-            <ul>
-                <h1 className="Header-center">Posts</h1>
-                {this.props.posts.map((comment) =>
-                <li className="comment-card">
-                    <Card body outline color="primary">
-                        <CardTitle className="title">
-                            <CardText>
-                                <div className="icon-category">
-                                    <FaRegEdit className='icon'/> 
-                                    <FaRegTrashAlt onClick={() => this.handleRemovePost(comment.id)} className='icon'/> 
-                                </div>
+            <Col sm="3" md={{ size: 8, offset: 3 }}>
+                <ul>
+                    <h1 className="Header-center">Posts</h1>
+                    {this.props.posts.map((comment) =>
+                    <li className="comment-card">
+                        <Card body outline color="primary">
+                            <CardTitle className="title">
+                                <CardText>
+                                    <div className="icon-category">
+                                        <FaRegEdit className='icon'/> 
+                                        <FaRegTrashAlt onClick={() => this.handleRemovePost(comment.id)} className='icon'/> 
+                                    </div>
+                                </CardText>
+                                {comment.title}
+                            </CardTitle>
+                            <CardText className="author">{comment.author}
+                                    <div className="icon-category">
+                                        <FaTh className="icon"/> 
+                                        <div className="icon-value">{comment.category} </div>
+                                    </div>
                             </CardText>
-                            {comment.title}
-                         </CardTitle>
-                        <CardText className="author">{comment.author}
-                                <div className="icon-category">
-                                    <FaTh className="icon"/> 
-                                    <div className="icon-value">{comment.category} </div>
-                                </div>
-                        </CardText>
 
-                        <CardText className="body-post">{comment.body}</CardText>
-                        <div className="icons-votes">
-                                <FaCommentAlt className="icon"/> 
-                                <div className="icon-value">{comment.commentCount} </div>
-                                <FaRegHandPointUp onClick={() => this.handleVote(comment.id, "upVote")} className="icon"/>
-                                <div className="icon-value">{comment.voteScore} </div>
-                                <FaRegHandPointDown onClick={() => this.handleVote(comment.id, "downVote")} className="icon"/>
-                                
-                        </div>
-                    </Card>
-                </li>
-                )}
-            </ul> 
+                            <CardText className="body-post">{comment.body}</CardText>
+
+                            
+
+                            <div className="icons-votes">
+                                    <CardText className="date-post">{this.showDate(recoverDate(comment.timestamp))}</CardText>
+                                    <FaCommentAlt className="icon"/> 
+                                    <div className="icon-value">{comment.commentCount} </div>
+                                    <FaRegHandPointUp onClick={(e) => this.handleVote(e, comment.id, "upVote")} className="icon"/>
+                                    <div className="icon-value">{comment.voteScore} </div>
+                                    <FaRegHandPointDown onClick={(e) => this.handleVote(e, comment.id, "downVote")} className="icon"/>
+                            </div>
+                        </Card>
+                    </li>
+                    )}
+                </ul> 
+            </Col>
         )
     }
 }
 
-function mapStateToProps ({posts}) {
-    console.log("mapstate" + posts)
+function mapDispatchToProps (dispatch) {
     return ({
-        posts2 : posts
+        handlePostVote : (id, vote) => dispatch(handlePostVote({id, vote})),
+        handleDeletePost : (id) => dispatch(handleDeletePost(id))
     })
   }
 
-export default connect(mapStateToProps)(Post);
+export default connect(null, mapDispatchToProps)(Post);

@@ -1,5 +1,6 @@
 import { setPostVote, getPostsFromCategory, savePost, deletePost } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
+import { uuidv4 } from '../utils/IDGenerator'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const VOTE_POSTS = 'VOTE_POSTS'
@@ -72,7 +73,7 @@ export function handlePostsFromCategory (category) {
       dispatch(showLoading())
 
       return savePost({
-        id : '2232',
+        id : uuidv4(),
         timestamp : Date.now(),
         title,
         body,

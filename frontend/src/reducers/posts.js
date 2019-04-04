@@ -16,11 +16,8 @@ export default function posts (state = {}, action) {
         ...action.postsPerCategory,
       }
     case ADD_POST :
-      const { post } = action
-
       return {
         ...state,
-        ...action.post,
       }  
     case REMOVE_POST:
       return Object.values(state).filter(post => post.id !== action.id)

@@ -6,14 +6,18 @@ export default function nav(){
     return (
         <Nav className="nav-options">
             <NavItem>
-                <NavLink to='/' exact activeClassName='active'>
-                    Home
-                </NavLink>
+                <span style={{ fontSize: '35px', marginRight : '50px'}}>
+                    <NavLink to='/' exact activeClassName='active'>
+                        Home
+                    </NavLink>
+                </span>
             </NavItem>
             <NavItem>
-                <NavLink to='/newPost' activeClassName='active'>
-                    Add Post
-                </NavLink>
+                <span style={{ fontSize: '35px'}}>
+                    <NavLink to='/newPost' activeClassName='active'>
+                        Add Post
+                    </NavLink>
+                </span>
             </NavItem>
           </Nav>
     )
