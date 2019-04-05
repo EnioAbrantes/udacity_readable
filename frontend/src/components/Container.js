@@ -4,6 +4,7 @@ import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
 import { Button, Col, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledButtonDropdown } from 'reactstrap';
 import Post from './Post'
 import {handlePostsFromCategory, handleOrderPosts} from '../actions/posts'
+import comments from '../reducers/comments';
 
 class Container extends Component {
     componentDidMount() {
@@ -63,10 +64,12 @@ class Container extends Component {
     }
 }
 
-function mapStateToProps({ categories, posts }){
+function mapStateToProps({ categories, posts, comments }){
+    console.log("ccc"+comments)
     return {
       categories : Object.values(categories),
-      posts : Object.values(posts)
+      posts : Object.values(posts),
+      comments : Object.values(comments)
     }
 }
 

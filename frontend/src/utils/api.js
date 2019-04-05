@@ -60,6 +60,16 @@ export function getPostsFromCategory (categorie) {
     .then(posts => posts.json())
 }
 
+export function getComments (id) {
+  return fetch(`${server}/posts/${id}/comments`,{ 
+    method: 'get',
+    headers: {
+      ...headers,
+    }
+  })
+    .then(comments => comments.json())
+}
+
 export function deletePost (id) {
   return fetch(`${server}/posts/${id}`,{ 
     method: 'delete',
@@ -71,3 +81,51 @@ export function deletePost (id) {
     .then(data => data)
 }
 
+export function updatePost (id, params) {
+  return fetch(`${server}/posts/${id}`,{ 
+    method: 'put',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify(params)
+  })
+  .then(res => res.json())
+  .then(data => data)
+}
+
+
+export function setCommentVote (option) {
+  console.log("voteapi" + option.vote)
+  return fetch(`${server}/comments/${option.id}`,{ 
+    method: 'post',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify({option : option.vote})
+  })
+    .then(comment => comment.json())
+}
+
+
+export function deleteComment (id) {
+  return fetch(`${server}/comments/${id}`,{ 
+    method: 'delete',
+    headers: {
+      ...headers,
+    }
+  })
+    .then(comments => comments.json())
+}
+
+
+/* 
+POST /comments/:id
+USAGE:
+  Used for voting on a comment.
+PARAMS:
+  option - String: Either "upVote" or "downVote"
+
+DELETE /comments/:id
+      USAGE:
+        Sets a comment's deleted flag to 'true'
+ */

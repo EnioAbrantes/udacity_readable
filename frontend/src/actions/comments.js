@@ -5,4 +5,6 @@ export function receiveComments (comments){
         type : RECEIVE_COMMENTS,
         comments,
     }
+
+    
 }

@@ -1,4 +1,4 @@
-import { setPostVote, getPostsFromCategory, savePost, deletePost } from '../utils/api'
+import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getComments, deleteComment, setCommentVote } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { uuidv4 } from '../utils/IDGenerator'
 
@@ -6,8 +6,11 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const VOTE_POSTS = 'VOTE_POSTS'
 export const RECEIVE_POSTS_CATEGORIES = 'RECEIVE_POSTS_CATEGORIES'
 export const ADD_POST = 'ADD_POST'
+export const EDIT_POST = 'EDIT_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const ORDER_POST = 'ORDER_POST'
+export const COMMENTS_POST = 'COMMENTS_POST'
+export const VOTE_COMMENT = 'VOTE_COMMENT'
 
 export function receivePosts (posts){
     return {
@@ -89,6 +92,26 @@ export function handlePostsFromCategory (category) {
     }
   }
 
+  function editPost (post) {
+    return {
+      type: EDIT_POST,
+      post,
+    }
+  }
+  
+  export function handleEditPost (id, title, body) {
+    return (dispatch) => {
+
+      return updatePost(id, {
+        title,
+        body
+      })
+        .then((post) => {
+            dispatch(editPost(post))
+        })
+    }
+  }
+
   function removePost (id) {
     return {
       type: REMOVE_POST,
@@ -110,6 +133,49 @@ export function handlePostsFromCategory (category) {
         .then(() => dispatch(hideLoading()))
     }
   }
+
+
+  function ShowComments (comments) {
+    return {
+      type: COMMENTS_POST,
+      comments,
+    }
+  }
+
+  export function handleShowComments (id) {
+    return (dispatch) => {
+      return getComments(
+        id
+      )
+        .then((comments) => {
+            console.log('commmmmmets' + comments)
+            dispatch(ShowComments(comments))
+        })
+    }
+  }
+
+
+  function commentVote (comment) {
+    return {
+      type: VOTE_COMMENT,
+      comment,
+    }
+  }
+  
+  export function handleCommentVote (info) {
+      return (dispatch) => {
+          dispatch(commentVote(info))
+          console.log("info" + info.id)
+          return setCommentVote(info)
+          .then((comment) => dispatch(commentVote(comment)))
+          .catch((e) => {
+              console.warn('Error in handleCommentVote: ', e)
+              dispatch(commentVote(info))
+              alert('The was an error liking or disliking a post. Try again.')
+          })
+      }
+  }
+
 
   function orderPosts (posts) {
     return {
