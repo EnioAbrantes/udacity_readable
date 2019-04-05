@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
-import { Button, Col } from 'reactstrap';
+import { Button, Col, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledButtonDropdown } from 'reactstrap';
 import Post from './Post'
-import { handlePostsFromCategory } from '../actions/posts'
+import {handlePostsFromCategory, handleOrderPosts} from '../actions/posts'
 
 class Container extends Component {
     componentDidMount() {
@@ -15,6 +15,25 @@ class Container extends Component {
         this.props.dispatch(handlePostsFromCategory(e.target.value))
     }
 
+    comparePostsByVote = (a, b) => {
+        if (a.voteScore < b.voteScore)
+          return -1;
+        return a.voteScore > b.voteScore ? 1 : 0
+      }
+
+    comparePostsByDate = (a,b) => {
+        if (a.timestamp < b.timestamp)
+          return -1;
+        return a.timestamp > b.timestamp ? 1 : 0
+      }
+
+    handleOrderByVotes = () => {
+        this.props.dispatch(handleOrderPosts(Object.values(this.props.posts).sort(this.comparePostsByVote).reverse()))
+    }
+
+    handleOrderByDate = () => {
+        this.props.dispatch(handleOrderPosts(Object.values(this.props.posts).sort(this.comparePostsByDate)))
+    }
 
     render(){
         return (
@@ -30,6 +49,15 @@ class Container extends Component {
                     </ul> 
                 </Col>    
                 <Post posts = {this.props.posts}/>
+                <UncontrolledButtonDropdown color="primary" style={{height: '40px', marginTop : '77px', marginLeft : '-30px'}}>
+                    <DropdownToggle caret>
+                        Order by
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={() => this.handleOrderByVotes()}>Votes</DropdownItem>
+                        <DropdownItem onClick={() => this.handleOrderByDate()}>Date</DropdownItem>
+                    </DropdownMenu>
+                </UncontrolledButtonDropdown>
             </div>
         )
     }
@@ -40,7 +68,6 @@ function mapStateToProps({ categories, posts }){
       categories : Object.values(categories),
       posts : Object.values(posts)
     }
-    
-  }
+}
 
 export default connect(mapStateToProps)(Container);

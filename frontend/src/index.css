@@ -30,6 +30,7 @@ body {
 }
 
 .inlineInfo{
+  margin-top: 40px;
   display: inline-flex;
 }
 
@@ -83,4 +84,11 @@ ul, ol, li {
 .nav-options{
   margin-left: 10%;
 }
-  
+
+.label-posts{
+  text-align: right;
+}
+
+.all-posts{
+  align-content: center;
+}

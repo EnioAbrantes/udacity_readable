@@ -7,6 +7,7 @@ export const VOTE_POSTS = 'VOTE_POSTS'
 export const RECEIVE_POSTS_CATEGORIES = 'RECEIVE_POSTS_CATEGORIES'
 export const ADD_POST = 'ADD_POST'
 export const REMOVE_POST = 'REMOVE_POST'
+export const ORDER_POST = 'ORDER_POST'
 
 export function receivePosts (posts){
     return {
@@ -107,5 +108,18 @@ export function handlePostsFromCategory (category) {
             dispatch(removePost(post.id))
         })
         .then(() => dispatch(hideLoading()))
+    }
+  }
+
+  function orderPosts (posts) {
+    return {
+      type: ORDER_POST,
+      posts,
+    }
+  }
+
+  export function handleOrderPosts (posts) {
+    return (dispatch) => {
+      return dispatch(orderPosts(posts))
     }
   }
