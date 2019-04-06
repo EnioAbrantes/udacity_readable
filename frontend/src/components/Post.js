@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handlePostVote, handleCommentVote, handleDeletePost, handleShowComments, handleDeleteComment } from '../actions/posts'
 import { Card, CardTitle, CardText, Col, Collapse, Button, CardBody, UncontrolledCollapse  } from 'reactstrap';
-import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast } from "react-icons/fa";
+import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast, FaReply } from "react-icons/fa";
 import { recoverDate } from '../utils/RecoverDate'
 import { Link } from 'react-router-dom'
 
@@ -43,7 +43,8 @@ class Post extends Component {
             <Col sm="3" md={{ size: 8, offset: 3 }}>
                 <ul>
                     <h1 className="Header-center">Posts</h1>
-                    {this.props.posts.map((post) =>
+                    {this.props.posts.length 
+                    ?this.props.posts.map((post) =>
                     <li className="comment-card">
                         <Card body outline color="primary">
                             <CardTitle className="title">
@@ -69,8 +70,10 @@ class Post extends Component {
 
                             <CardText className="body-post">{post.body}</CardText>
                                 
-
+                            <FaReply className="icon" />
+                            
                             <div className="icons-votes">
+                                    
                                     <CardText className="date-post">{recoverDate(post.timestamp)}</CardText>
                                     <FaCommentAlt className="icon" onClick={() => this.handleShowComments(post.id)}/> 
                                     <div className="icon-value">{post.commentCount} </div>
@@ -78,7 +81,9 @@ class Post extends Component {
                                     <div className="icon-value">{post.voteScore} </div>
                                     <FaRegHandPointDown onClick={() => this.handlePostVote(post.id, "downVote")} className="icon"/>
                                     
+                                    
                             </div>
+
                             <Collapse isOpen = {this.state.collapse === post.id && post.commentCount}>
                                 <Card>
                                     {this.props.comments.map( (comment) =>
@@ -99,10 +104,10 @@ class Post extends Component {
                                             </CardBody>
                                             <CardBody style={{padding: '0px', marginTop: '35px', marginRight : '15px'}}>
                                                 <div className="icons-votes" >
-                                                <CardText className="date-post">{recoverDate(comment.timestamp)}</CardText>
-                                                <FaRegHandPointUp onClick={() => this.handleCommentVote(comment.id, "upVote")} className="icon"/>
-                                                <div className="icon-value">{comment.voteScore} </div>
-                                                <FaRegHandPointDown onClick={() => this.handleCommentVote(comment.id, "downVote")} className="icon"/>
+                                                    <CardText className="date-post">{recoverDate(comment.timestamp)}</CardText>
+                                                    <FaRegHandPointUp onClick={() => this.handleCommentVote(comment.id, "upVote")} className="icon"/>
+                                                    <div className="icon-value">{comment.voteScore} </div>
+                                                    <FaRegHandPointDown onClick={() => this.handleCommentVote(comment.id, "downVote")} className="icon"/>
                                                 </div>
                                             </CardBody>
                                             <hr style={{marginTop: '5px', marginBottom: '0px'}}/>
@@ -112,7 +117,8 @@ class Post extends Component {
                             </Collapse >
                         </Card>
                     </li>
-                    )}
+                    )
+                    : <span style={{fontSize: '30px'}}> There is no posts yet =x</span>}
                 </ul> 
             </Col>
         )
