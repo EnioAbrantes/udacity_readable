@@ -11,6 +11,7 @@ export const REMOVE_POST = 'REMOVE_POST'
 export const ORDER_POST = 'ORDER_POST'
 export const COMMENTS_POST = 'COMMENTS_POST'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 
 export function receivePosts (posts){
     return {
@@ -131,6 +132,25 @@ export function handlePostsFromCategory (category) {
             dispatch(removePost(post.id))
         })
         .then(() => dispatch(hideLoading()))
+    }
+  }
+
+  function removeComment (id) {
+    return {
+      type: REMOVE_COMMENT,
+      id,
+    }
+  }
+
+  export function handleDeleteComment (id) {
+    return (dispatch) => {
+    
+      return deleteComment(
+        id
+      )
+        .then((post) => {
+            dispatch(removeComment(post.id))
+        })
     }
   }
 

@@ -49,7 +49,7 @@ class Container extends Component {
                         )}
                     </ul> 
                 </Col>    
-                <Post posts = {this.props.posts}/>
+                <Post />
                 <UncontrolledButtonDropdown color="primary" style={{height: '40px', marginTop : '77px', marginLeft : '-30px'}}>
                     <DropdownToggle caret>
                         Order by

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { handlePostVote, handleCommentVote, handleDeletePost, handleShowComments } from '../actions/posts'
+import { handlePostVote, handleCommentVote, handleDeletePost, handleShowComments, handleDeleteComment } from '../actions/posts'
 import { Card, CardTitle, CardText, Col, Collapse, Button, CardBody, UncontrolledCollapse  } from 'reactstrap';
 import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast } from "react-icons/fa";
 import { recoverDate } from '../utils/RecoverDate'
@@ -22,6 +22,10 @@ class Post extends Component {
 
     handleRemovePost = (id) => {
         this.props.handleDeletePost(id)
+    }
+
+    handleRemoveComment = (id) => {
+        this.props.handleDeleteComment(id)
     }
 
     handleShowComments = (id) => {
@@ -76,21 +80,35 @@ class Post extends Component {
                                     
                             </div>
                             <Collapse isOpen = {this.state.collapse === post.id && post.commentCount}>
-                                        <Card>
-                                            {this.props.comments.map( (comment) =>
-                                                <CardBody>
-                                                    {console.log('postid' + post.id + "commmentid" + comment.parentId)}
-                                                    {post.id === comment.parentId? comment.body: false}
-                                                    <div className="icons-votes" style={{ marginBottom: '1rem' }}>
-                                                        <CardText className="date-post">{recoverDate(post.timestamp)}</CardText>
-                                                        <FaRegHandPointUp onClick={() => this.handleCommentVote(comment.id, "upVote")} className="icon"/>
-                                                        <div className="icon-value">{comment.voteScore} </div>
-                                                        <FaRegHandPointDown onClick={() => this.handleCommentVote(comment.id, "downVote")} className="icon"/>
+                                <Card>
+                                    {this.props.comments.map( (comment) =>
+                                        <div>
+                                            <CardBody style={{padding: '0px', marginTop: '15px', marginLeft: '25px', marginRight : '15px'}}>
+                                                {post.id === comment.parentId? comment.body: false}
+
+                                                    <div className="icon-category">
+                                                        <Link to={{
+                                                            pathname: "/editPost",
+                                                            state: { id: post.id, title: post.title , body: post.body }
+                                                        }} exact activeClassName='active'>
+                                                            <FaRegEdit className='icon'/> 
+                                                        </Link>  
+                                                        <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id)} className='icon'/> 
                                                     </div>
-                                                    <hr size="50"/>
-                                                </CardBody>
-                                            )}
-                                        </Card>
+
+                                            </CardBody>
+                                            <CardBody style={{padding: '0px', marginTop: '35px', marginRight : '15px'}}>
+                                                <div className="icons-votes" >
+                                                <CardText className="date-post">{recoverDate(comment.timestamp)}</CardText>
+                                                <FaRegHandPointUp onClick={() => this.handleCommentVote(comment.id, "upVote")} className="icon"/>
+                                                <div className="icon-value">{comment.voteScore} </div>
+                                                <FaRegHandPointDown onClick={() => this.handleCommentVote(comment.id, "downVote")} className="icon"/>
+                                                </div>
+                                            </CardBody>
+                                            <hr style={{marginTop: '5px', marginBottom: '0px'}}/>
+                                        </div>
+                                    )}
+                                </Card>
                             </Collapse >
                         </Card>
                     </li>
@@ -106,14 +124,16 @@ function mapDispatchToProps (dispatch) {
         handlePostVote : (id, vote) => dispatch(handlePostVote({id, vote})),
         handleCommentVote : (id, vote) => dispatch(handleCommentVote({id, vote})),
         handleDeletePost : (id) => dispatch(handleDeletePost(id)),
-        handleShowComments : (id) => dispatch(handleShowComments(id))
+        handleShowComments : (id) => dispatch(handleShowComments(id)),
+        handleDeleteComment : (id) => dispatch(handleDeleteComment(id)),
     })
   }
 
-  function mapStateToProps({ comments }){
+  function mapStateToProps({ posts, comments }){
     let orderCommentsByVotes = Object.values(comments) && Object.values(comments).sort((a,b) => b.voteScore - a.voteScore)
     return {
-      comments : Object.values(orderCommentsByVotes)
+      comments : Object.values(orderCommentsByVotes),
+      posts : Object.values(posts),
     }
 }
 
