@@ -68,7 +68,6 @@ class Container extends Component {
 }
 
 function mapStateToProps({ categories, posts, comments }){
-    console.log("ccc"+comments)
     return {
       categories : Object.values(categories),
       posts : Object.values(posts),

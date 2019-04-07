@@ -59,7 +59,7 @@ class NewPost extends Component{
     }
 
     validateButton = () => (
-        (this.state.title && this.state.body && this.state.author && this.state.categorie) || (this.props.match.params.id && this.state.title || this.state.body)
+        this.state.categorie && this.state.body && this.state.author && this.state.title || (this.props.match.params.id && (this.state.title || this.state.body))
     )
 
     render(){

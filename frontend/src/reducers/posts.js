@@ -4,7 +4,6 @@ export default function posts (state = {}, action) {
   switch(action.type) {
     case RECEIVE_POSTS :
       return {
-        ...state,
         ...Object.values(action.posts).sort((a, b) => {
           if (a.voteScore < b.voteScore)
             return -1;
@@ -16,7 +15,10 @@ export default function posts (state = {}, action) {
       ))
     case RECEIVE_POSTS_CATEGORIES :
       return {
-        ...action.postsPerCategory,
+        ...Object.values(action.postsPerCategory).sort((a, b) => {
+          if (a.voteScore < b.voteScore)
+            return -1;
+          return a.voteScore > b.voteScore ? 1 : 0}).reverse()
       }
     case ADD_POST :
       return {
