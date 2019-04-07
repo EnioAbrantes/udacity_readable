@@ -90,9 +90,7 @@ export function updatePost (id, params) {
     body: JSON.stringify(params)
   })
   .then(res => res.json())
-  .then(data => data)
 }
-
 
 export function setCommentVote (option) {
   console.log("voteapi" + option.vote)
@@ -140,13 +138,20 @@ export function updateComment (id, comment) {
   .then(res => res.json())
 }
 
+export function getSpecificPost (id) {
+  return fetch(`${server}/posts/${id}`,{ 
+    method: 'get',
+    headers: {
+      ...headers,
+    }
+  })
+    .then(post => post.json())
+}
+
+
 /* 
 
-        PUT /comments/:id
+       GET /posts/:id
       USAGE:
-        Edit the details of an existing comment
-
-      PARAMS:
-        timestamp: timestamp. Get this however you want.
-        body: String
+        Get the details of a single post
  */

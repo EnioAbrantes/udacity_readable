@@ -62,10 +62,7 @@ class Post extends Component {
                             <CardTitle className="title">
                                 <CardText>
                                     <div className="icon-category">
-                                        <Link to={{
-                                            pathname: "/editPost",
-                                            state: { id: post.id, title: post.title , body: post.body }
-                                        }} exact activeClassName='active'>
+                                        <Link to={`/editPost/${post.id}`} activeClassName='active'>
                                             <FaRegEdit className='icon'/> 
                                         </Link>  
                                         <FaRegTrashAlt onClick={() => this.handleRemovePost(post.id)} className='icon'/> 

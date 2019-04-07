@@ -45,7 +45,7 @@ class Container extends Component {
                         <h2>Categories</h2>
                         {this.props.categories.map((category) =>
                             <li>
-                                <Link to= {`/categories/${category.name}`} activeClassName='active'>
+                                <Link to= {`/${category.name}`} activeClassName='active'>
                                     <Button style={{width: '100%'}} onClick={ (e) => this.handleCategories(e)} outline color="primary" size="lg" value={category.name} >{category.name}</Button>
                                 </Link>
                             </li>

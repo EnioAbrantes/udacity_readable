@@ -1,4 +1,4 @@
-import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getComments, deleteComment, setCommentVote, saveComment, updateComment } from '../utils/api'
+import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getComments, deleteComment, setCommentVote, saveComment, updateComment, getSpecificPost } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { uuidv4 } from '../utils/IDGenerator'
 
@@ -9,6 +9,7 @@ export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const ORDER_POST = 'ORDER_POST'
+export const RECEIVE_SPECIFIC_POST = 'RECEIVE_SPECIFIC_POST'
 
 
 export function receivePosts (posts){
@@ -16,6 +17,25 @@ export function receivePosts (posts){
         type : RECEIVE_POSTS,
         posts,
     }
+}
+
+function receivePost (post) {
+  return {
+    type: RECEIVE_SPECIFIC_POST,
+    post,
+  }
+}
+
+export function handleReceivePost (id) {
+  return (dispatch) => {
+      return getSpecificPost(id)
+      .then((post) => dispatch(receivePost(post)))
+      .catch((e) => {
+          console.warn('Error in handleReceivePost: ', e)
+          dispatch(receivePost(id))
+          alert('Try again later.')
+      })
+  }
 }
 
 function postVote (post) {
@@ -132,9 +152,6 @@ export function handlePostsFromCategory (category) {
         .then(() => dispatch(hideLoading()))
     }
   }
-
-
-
 
 
   function orderPosts (posts) {

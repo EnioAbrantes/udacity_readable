@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
-import { handleAddPost } from '../actions/posts'
+import { handleAddPost, handleReceivePost, handleEditPost } from '../actions/posts'
 import { Button, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { AvRadioGroup, AvRadio, AvForm, AvField, AvGroup, AvFeedback  } from 'availity-reactstrap-validation';
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 class NewPost extends Component{
 
     componentDidMount() {
-        this.props.dispatch(handleInitialCategories())
+        this.props.match.params.id? this.props.dispatch(handleReceivePost(this.props.match.params.id)) : this.props.dispatch(handleInitialCategories())
     }
 
     state = {}
@@ -47,7 +47,8 @@ class NewPost extends Component{
     handleSubmit = () => {
         const { title, body, author, categorie } = this.state;
         const { dispatch } = this.props
-        dispatch(handleAddPost(title, body, author, categorie))
+
+        this.props.match.params.id ? dispatch(handleEditPost(this.props.match.params.id, title, body)) : dispatch(handleAddPost(title, body, author, categorie))
 
         this.setState(() => ({
             title : "",
@@ -58,22 +59,20 @@ class NewPost extends Component{
     }
 
     validateButton = () => (
-        this.state.title && this.state.body && this.state.author && this.state.categorie
+        this.state.title && this.state.body && this.state.author && this.state.categorie || (this.props.match.params.id && this.state.title || this.state.body)
     )
 
     render(){
 
         const { body } = this.state;
-        {/* todo: Redirect to /if submitted */}
-
-        //const charsLeft = 280 - body.length
+        const { id } = this.props.match.params;
 
         return (
         <div>
             <AvForm onValidSubmit={this.handleSubmit}>
                 <AvGroup classname='new-post'>
                     <Col sm="12" md={{ size: 12, offset: 5 }}>
-                        <h3>Type a New Post</h3>
+                        <h3>{id? 'Edit the post' : 'Type a New Post'}</h3>
                     </Col>
                 </AvGroup>
                 <AvGroup row>
@@ -85,44 +84,49 @@ class NewPost extends Component{
                                 type="title"
                                 name="title"
                                 id="titleID"
-                                placeholder="Type a title"
+                                placeholder={id? 'Edit your title' : "Type a title"}
+                                value= {id? this.props.posts.title: null}
                                 onChange = {(e) => this.handleChangeTitle(e)}
                                 required 
                             />
                     </Col>
                 </AvGroup>
+                {!id?  
+                    <AvGroup row>
+                        <Col sm="1" md={{ size: 1, offset: 2 }}>
+                            <p style={{textAlign:'end', verticalAlign:'baseline', paddingTop: "7px"}} for="authorID">Author:</p>
+                        </Col>
+                        <Col sm="6" md={{ size: 6, offset: 0}}>
+                            <AvGroup>
+                                <AvField 
+                                type="author"
+                                name="author"
+                                id="authorID"
+                                placeholder="Type your name"
+                                onChange = {(e) => this.handleChangeAuthor(e)}
+                                required 
+                            />
+                            </AvGroup>
+                        </Col>
+                    </AvGroup>
+                : false}
                 <AvGroup row>
                     <Col sm="1" md={{ size: 1, offset: 2 }}>
-                        <p style={{textAlign:'end', verticalAlign:'baseline', paddingTop: "7px"}} for="authorID">Author:</p>
-                    </Col>
-                    <Col sm="6" md={{ size: 6, offset: 0}}>
-                        <AvGroup>
-                            <AvField 
-                            type="author"
-                            name="author"
-                            id="authorID"
-                            placeholder="Type your name"
-                            onChange = {(e) => this.handleChangeAuthor(e)}
-                            required 
-                        />
-                        </AvGroup>
-                    </Col>
-                </AvGroup>
-                <AvGroup row>
-                    <Col sm="1" md={{ size: 1, offset: 2 }}>
-                        <p style={{textAlign:'end', verticalAlign:'baseline', paddingTop: "12px"}} for="textID">Text Area:</p>
+                        <p style={{textAlign:'end', verticalAlign:'baseline', paddingTop: "12px"}} for="textID">Post:</p>
                     </Col>
                     <Col sm="6" md={{ size: 6, offset: 0}}>
                         <AvField 
                             type="textarea"
                             name="text"
                             id="textID"
-                            placeholder="Type your post"
+                            placeholder={id? 'Edit your post' : 'Type your post'}
+                            value= {id? this.props.posts.body: null}
                             onChange = {(e) => this.handleChangeBody(e)}
                             required 
                         />
                     </Col>
                 </AvGroup>
+                {!id? 
                 <AvGroup row>
                     <Col sm="2" md={{ size: 4, offset: 1 }}>
                         <h5 style={{textAlign:'end', verticalAlign:'baseline', paddingRight: "12px"}}>Select the category:</h5>
@@ -137,11 +141,12 @@ class NewPost extends Component{
                         </AvRadioGroup>
                     </Col>
                 </AvGroup>
+                : false}
                 <FormGroup row>
                     <Col sm="2" md={{ size: 3, offset: 5}}>
                         <Link to='/' exact activeClassName='active' style={{color : "black"}} onClick={e => this.validateButton()? this.handleSubmit() : e.preventDefault()}>
                             <Button color= {this.validateButton()? 'primary' : "danger"} onclick={() => this.handleSubmit()}>
-                                    Submit
+                                {id? 'Edit Post' : 'Add Post'}
                             </Button>
                         </Link>
                     </Col>
@@ -153,9 +158,10 @@ class NewPost extends Component{
     }
 }
 
-function mapStateToProps({ categories }){
+function mapStateToProps({ categories, posts }){
     return {
-      categories : Object.values(categories)
+      categories : Object.values(categories),
+      posts
     }
 
   }

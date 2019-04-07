@@ -13,8 +13,8 @@ class App extends Component {
           <Nav/>
           <Route path='/' exact component={Container} />
           <Route path='/newPost' exact component={NewPost} />
-          <Route path='/editPost' exact component={EditPost} />
-          <Route path="/categories/:categorie" component={Container} />
+          <Route path='/editPost/:id' component={NewPost} />
+          <Route path="/:categorie" component={Container} />
         </div>
       </Router>
     );
