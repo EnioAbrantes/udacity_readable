@@ -5,6 +5,7 @@ import { Button, Col, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem
 import Post from './Post'
 import {handlePostsFromCategory, handleOrderPosts} from '../actions/posts'
 import comments from '../reducers/comments';
+import { Link } from 'react-router-dom'
 
 class Container extends Component {
     componentDidMount() {
@@ -42,9 +43,11 @@ class Container extends Component {
                 <Col sm="3" md={{ size: 2, offset: 1}}>
                     <ul className='categories'>
                         <h2>Categories</h2>
-                        {this.props.categories.map((categorie) =>
+                        {this.props.categories.map((category) =>
                             <li>
-                            <Button style={{width: '100%'}} onClick={ (e) => this.handleCategories(e)} outline color="primary" size="lg" value={categorie.name} >{categorie.name}</Button>
+                                <Link to= {`/categories/${category.name}`} activeClassName='active'>
+                                    <Button style={{width: '100%'}} onClick={ (e) => this.handleCategories(e)} outline color="primary" size="lg" value={category.name} >{category.name}</Button>
+                                </Link>
                             </li>
                         )}
                     </ul> 

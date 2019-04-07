@@ -14,6 +14,7 @@ class App extends Component {
           <Route path='/' exact component={Container} />
           <Route path='/newPost' exact component={NewPost} />
           <Route path='/editPost' exact component={EditPost} />
+          <Route path="/categories/:categorie" component={Container} />
         </div>
       </Router>
     );
