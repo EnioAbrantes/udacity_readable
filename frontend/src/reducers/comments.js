@@ -3,7 +3,6 @@ import { COMMENTS_POST, VOTE_COMMENT, REMOVE_COMMENT, ADD_COMMENT, EDIT_COMMENT 
 export default function comments (state = {}, action) {
   switch(action.type) {
     case COMMENTS_POST :
-      console.log('calllll reducer')
         return {
           ...state,
           ...action.comments,

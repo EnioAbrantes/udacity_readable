@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
+import { handleInitialCategories} from '../actions/shared'
 import { handleAddPost, handleReceivePost, handleEditPost } from '../actions/posts'
 import { Button, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { AvRadioGroup, AvRadio, AvForm, AvField, AvGroup, AvFeedback  } from 'availity-reactstrap-validation';
@@ -59,7 +59,7 @@ class NewPost extends Component{
     }
 
     validateButton = () => (
-        this.state.title && this.state.body && this.state.author && this.state.categorie || (this.props.match.params.id && this.state.title || this.state.body)
+        (this.state.title && this.state.body && this.state.author && this.state.categorie) || (this.props.match.params.id && this.state.title || this.state.body)
     )
 
     render(){
@@ -85,7 +85,7 @@ class NewPost extends Component{
                                 name="title"
                                 id="titleID"
                                 placeholder={id? 'Edit your title' : "Type a title"}
-                                value= {id? this.props.posts.title: null}
+                                value= {id? this.props.posts.title: false}
                                 onChange = {(e) => this.handleChangeTitle(e)}
                                 required 
                             />
@@ -120,7 +120,7 @@ class NewPost extends Component{
                             name="text"
                             id="textID"
                             placeholder={id? 'Edit your post' : 'Type your post'}
-                            value= {id? this.props.posts.body: null}
+                            value= {id? this.props.posts.body: false}
                             onChange = {(e) => this.handleChangeBody(e)}
                             required 
                         />

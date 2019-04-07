@@ -4,8 +4,12 @@ export default function posts (state = {}, action) {
   switch(action.type) {
     case RECEIVE_POSTS :
       return {
-        ...action.posts
-      }
+        ...state,
+        ...Object.values(action.posts).sort((a, b) => {
+          if (a.voteScore < b.voteScore)
+            return -1;
+          return a.voteScore > b.voteScore ? 1 : 0}).reverse()
+        }
     case VOTE_POSTS :
       return Object.values(state).map((post) => (
         post.id === action.post.id? action.post : post

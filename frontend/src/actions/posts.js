@@ -32,7 +32,6 @@ export function handleReceivePost (id) {
       .then((post) => dispatch(receivePost(post)))
       .catch((e) => {
           console.warn('Error in handleReceivePost: ', e)
-          dispatch(receivePost(id))
           alert('Try again later.')
       })
   }

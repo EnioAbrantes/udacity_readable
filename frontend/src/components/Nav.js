@@ -14,7 +14,7 @@ export default function nav(){
             </NavItem>
             <NavItem>
                 <span style={{ fontSize: '35px'}}>
-                    <NavLink to='/newPost' exact activeClassName='active'>
+                    <NavLink to='/post/addPost' exact activeClassName='active'>
                         Add Post
                     </NavLink>
                 </span>
