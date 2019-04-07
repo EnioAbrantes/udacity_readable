@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { handlePostVote, handleCommentVote, handleDeletePost, handleShowComments, handleDeleteComment } from '../actions/posts'
+import { handlePostVote, handleDeletePost } from '../actions/posts'
+import { handleCommentVote, handleShowComments, handleDeleteComment } from '../actions/comments'
 import { Card, CardTitle, CardText, Col, Collapse, Button, CardBody, UncontrolledCollapse  } from 'reactstrap';
 import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast, FaReply } from "react-icons/fa";
 import { recoverDate } from '../utils/RecoverDate'

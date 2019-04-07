@@ -1,4 +1,4 @@
-import { COMMENTS_POST, VOTE_COMMENT, REMOVE_COMMENT, ADD_COMMENT, EDIT_COMMENT } from '../actions/posts'
+import { COMMENTS_POST, VOTE_COMMENT, REMOVE_COMMENT, ADD_COMMENT, EDIT_COMMENT } from '../actions/comments'
 
 export default function comments (state = {}, action) {
   switch(action.type) {

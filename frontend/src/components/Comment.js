@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux'
 import { Button } from 'reactstrap';
-import { handleShowComments, handleAddComment, handleEditComment } from '../actions/posts'
+import { handleShowComments, handleAddComment, handleEditComment } from '../actions/comments'
 import { handleInitialPosts} from '../actions/shared'
 
 class Comment extends Component{
