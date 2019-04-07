@@ -5,11 +5,15 @@ import { Card, CardTitle, CardText, Col, Collapse, Button, CardBody, Uncontrolle
 import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast, FaReply } from "react-icons/fa";
 import { recoverDate } from '../utils/RecoverDate'
 import { Link } from 'react-router-dom'
+import { AvField, AvGroup } from 'availity-reactstrap-validation';
+import Comment from './Comment';
 
 class Post extends Component {
 
     state = {
-        collapse: true
+        collapseComment: true,
+        addComment: true,
+        editComment: true,
     }
 
     handlePostVote = (id, vote) => {
@@ -29,14 +33,21 @@ class Post extends Component {
     }
 
     handleShowComments = (id) => {
-        this.toggle(id);
+        this.toggleShowComments(id);
         this.props.handleShowComments(id)
     }
 
-    toggle = (id) => {
-        console.log(id+this.state.collapse)
-        this.setState(state => ({ collapse: id === state.collapse? false : id}));
-      }
+    toggleShowComments = (id) => {
+        this.setState(state => ({ collapseComment: id === state.collapseComment? false : id}));
+    }
+
+    toggleAddComment = (id) => {
+        this.setState(state => ({ addComment: id === state.addComment? false : id}));
+    }
+
+    toggleEditComment = (id) => {
+        this.setState(state => ({ editComment: id === state.editComment? false : id}));
+    }
 
     render(){
         return (
@@ -70,7 +81,7 @@ class Post extends Component {
 
                             <CardText className="body-post">{post.body}</CardText>
                                 
-                            <FaReply className="icon" />
+                            <FaReply className="icon" onClick={() => this.toggleAddComment(post.id)} />
                             
                             <div className="icons-votes">
                                     
@@ -81,10 +92,9 @@ class Post extends Component {
                                     <div className="icon-value">{post.voteScore} </div>
                                     <FaRegHandPointDown onClick={() => this.handlePostVote(post.id, "downVote")} className="icon"/>
                                     
-                                    
                             </div>
 
-                            <Collapse isOpen = {this.state.collapse === post.id && post.commentCount}>
+                            <Collapse isOpen = {this.state.collapseComment === post.id && post.commentCount}>
                                 <Card>
                                     {this.props.comments.map( (comment) =>
                                         <div>
@@ -92,12 +102,7 @@ class Post extends Component {
                                                 {post.id === comment.parentId? comment.body: false}
 
                                                     <div className="icon-category">
-                                                        <Link to={{
-                                                            pathname: "/editPost",
-                                                            state: { id: post.id, title: post.title , body: post.body }
-                                                        }} exact activeClassName='active'>
-                                                            <FaRegEdit className='icon'/> 
-                                                        </Link>  
+                                                        <FaRegEdit className='icon' onClick={() => this.toggleEditComment(comment.id)}/> 
                                                         <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id)} className='icon'/> 
                                                     </div>
 
@@ -110,11 +115,21 @@ class Post extends Component {
                                                     <FaRegHandPointDown onClick={() => this.handleCommentVote(comment.id, "downVote")} className="icon"/>
                                                 </div>
                                             </CardBody>
-                                            <hr style={{marginTop: '5px', marginBottom: '0px'}}/>
+                                            <Collapse isOpen = {this.state.editComment === comment.id}>
+                                                <Comment id={post.id} isEdit={true} commentId={comment.id}/>
+                                            </Collapse >
+                                            <hr style={{marginTop: '1px', marginBottom: '0px'}}/>
                                         </div>
                                     )}
                                 </Card>
                             </Collapse >
+
+                            <Collapse isOpen = {this.state.addComment === post.id}>
+                                <Comment id={post.id} isEdit={false}/>
+                            </Collapse >
+                                
+                            
+                            
                         </Card>
                     </li>
                     )

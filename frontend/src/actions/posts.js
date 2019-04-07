@@ -1,4 +1,4 @@
-import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getComments, deleteComment, setCommentVote } from '../utils/api'
+import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getComments, deleteComment, setCommentVote, saveComment, updateComment } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { uuidv4 } from '../utils/IDGenerator'
 
@@ -12,6 +12,8 @@ export const ORDER_POST = 'ORDER_POST'
 export const COMMENTS_POST = 'COMMENTS_POST'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 export function receivePosts (posts){
     return {
@@ -209,3 +211,56 @@ export function handlePostsFromCategory (category) {
       return dispatch(orderPosts(posts))
     }
   }
+
+  function addComment (comment) {
+    return {
+      type: ADD_COMMENT,
+      comment,
+    }
+  }
+
+  export function handleAddComment (body, author, parentId) {
+    return (dispatch) => {
+      return saveComment({
+        id : uuidv4(),
+        timestamp : Date.now(),
+        body,
+        author,
+        parentId
+      })
+        .then((comment) => {
+            dispatch(addComment(comment))
+        })
+    }
+  }
+
+  function editComment (comment) {
+    return {
+      type: EDIT_COMMENT,
+      comment,
+    }
+  }
+
+  export function handleEditComment (id, body) {
+    return (dispatch) => {
+      return updateComment(id, {
+        timestamp : Date.now(),
+        body,
+      })
+        .then((comment) => {
+            dispatch(editComment(comment))
+        })
+    }
+  }
+
+  
+/* 
+
+        PUT /comments/:id
+      USAGE:
+        Edit the details of an existing comment
+
+      PARAMS:
+        timestamp: timestamp. Get this however you want.
+        body: String
+ */

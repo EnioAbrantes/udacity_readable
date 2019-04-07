@@ -118,14 +118,35 @@ export function deleteComment (id) {
 }
 
 
-/* 
-POST /comments/:id
-USAGE:
-  Used for voting on a comment.
-PARAMS:
-  option - String: Either "upVote" or "downVote"
+export function saveComment (comment) {
+  return fetch(`${server}/comments`,{ 
+    method: 'post',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify(comment)
+  })
+  .then(res => res.json())
+}
 
-DELETE /comments/:id
+export function updateComment (id, comment) {
+  return fetch(`${server}/comments/${id}`,{ 
+    method: 'put',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify(comment)
+  })
+  .then(res => res.json())
+}
+
+/* 
+
+        PUT /comments/:id
       USAGE:
-        Sets a comment's deleted flag to 'true'
+        Edit the details of an existing comment
+
+      PARAMS:
+        timestamp: timestamp. Get this however you want.
+        body: String
  */
