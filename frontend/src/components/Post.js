@@ -98,11 +98,12 @@ class Post extends Component {
                                         <div>
                                             <CardBody style={{padding: '0px', marginTop: '15px', marginLeft: '25px', marginRight : '15px'}}>
                                                 {post.id === comment.parentId? comment.body: false}
-
-                                                    <div className="icon-category">
-                                                        <FaRegEdit className='icon' onClick={() => this.toggleEditComment(comment.id)}/> 
-                                                        <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id)} className='icon'/> 
-                                                    </div>
+                                                
+                                                <div className="icon-category">
+                                                    {post.id === comment.parentId? comment.author: false}
+                                                    <FaRegEdit className='icon' onClick={() => this.toggleEditComment(comment.id)}/> 
+                                                    <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id)} className='icon'/> 
+                                                </div>
 
                                             </CardBody>
                                             <CardBody style={{padding: '0px', marginTop: '35px', marginRight : '15px'}}>
