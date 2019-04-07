@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FormGroup, Input } from 'reactstrap';
+import { AvForm, AvField} from 'availity-reactstrap-validation';
 import { connect } from 'react-redux'
 import { Button } from 'reactstrap';
 import { handleShowComments, handleAddComment, handleEditComment } from '../actions/comments'
@@ -35,13 +35,18 @@ class Comment extends Component{
         })
     }
 
+    validateButton = () => (
+        (this.state.body && this.state.author) || (this.props.isEdit &&  this.state.body)
+    )
+
+
     render(){
         var { isEdit } = this.props
         return(
             <div>
-                <FormGroup row>
+                <AvForm onValidSubmit={this.handleComment} row>
                     {!isEdit? 
-                    <Input 
+                    <AvField 
                         type="author"
                         name="author"
                         id="addCommentAuthorID"
@@ -50,7 +55,7 @@ class Comment extends Component{
                         required 
                     />
                     : false}
-                    <Input 
+                    <AvField 
                         type="textarea"
                         name="text"
                         id="addCommentBodyID"
@@ -58,8 +63,8 @@ class Comment extends Component{
                         onChange = {(e) => this.handleChangeBody(e)}
                         required 
                     />
-                    </FormGroup>
-                    <Button color= {'primary'} onClick={() => this.handleComment()} style={{ left: '50%', textAlign: 'center', marginLeft:'auto', marginRight: 'auto'}}>
+                    </AvForm>
+                    <Button color= {this.validateButton()? 'primary' : "danger"} onClick={() => this.validateButton() && this.handleComment()} style={{ left: '50%', textAlign: 'center', marginLeft:'auto', marginRight: 'auto'}}>
                         {isEdit? "Update comment": "Add Comment"}
                     </Button>
                     
