@@ -4,9 +4,9 @@ This is the starter project for the final assessment project for Udacity's Redux
 
 This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
 
-## Start Developing
+## Start the application
 
-To get started developing right away:
+To start the application follow the steps:
 
 * Install and start the API server
     - `cd api-server`
@@ -20,3 +20,11 @@ To get started developing right away:
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+## FRONT END
+
+All the information about the front-end code can be find on the folder frontend.
+
+## Contributing
+
+check out [CONTRIBUTING.md](CONTRIBUTING.md).
