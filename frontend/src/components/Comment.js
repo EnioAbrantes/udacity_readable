@@ -21,7 +21,6 @@ class Comment extends Component{
 
     handleChangeBody = (e) => {
         const body = e.target.value
-        console.log(body)
         this.setState({
             body
         })
@@ -29,7 +28,6 @@ class Comment extends Component{
 
     handleChangeAuthor = (e) => {
         const author = e.target.value
-        console.log(author)
         this.setState({
             author
         })

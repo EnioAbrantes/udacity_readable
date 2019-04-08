@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleReceivePost } from '../actions/posts'
-import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast, FaReply, FaInfo } from "react-icons/fa";
-import { Card, CardTitle, CardText, Col, Collapse, Button, CardBody, UncontrolledCollapse  } from 'reactstrap';
+import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaReply, FaInfo } from "react-icons/fa";
+import { Card, CardTitle, CardText, Collapse, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { recoverDate } from '../utils/RecoverDate'
 import { handlePostVote, handleDeletePost } from '../actions/posts'

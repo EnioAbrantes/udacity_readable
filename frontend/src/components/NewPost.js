@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialCategories} from '../actions/shared'
 import { handleAddPost, handleReceivePost, handleEditPost } from '../actions/posts'
-import { Button, Col, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { AvRadioGroup, AvRadio, AvForm, AvField, AvGroup, AvFeedback  } from 'availity-reactstrap-validation';
+import { Button, Col, FormGroup } from 'reactstrap';
+import { AvRadioGroup, AvRadio, AvForm, AvField, AvGroup } from 'availity-reactstrap-validation';
 import { Link } from 'react-router-dom'
 
 class NewPost extends Component{
@@ -16,7 +16,6 @@ class NewPost extends Component{
 
     handleChangeBody = (e) => {
         const body = e.target.value
-        console.log(body)
         this.setState({
             body
         })
@@ -24,21 +23,18 @@ class NewPost extends Component{
 
     handleChangeTitle = (e) => {
         const title = e.target.value
-        console.log(title)
         this.setState({
             title
         })
     }
     handleChangeCategorie = (e) => {
         const categorie = e.target.value
-        console.log(categorie)
         this.setState({
             categorie
         })
     }
     handleChangeAuthor = (e) => {
         const author = e.target.value
-        console.log(author)
         this.setState({
             author
         })
@@ -59,12 +55,11 @@ class NewPost extends Component{
     }
 
     validateButton = () => (
-        this.state.categorie && this.state.body && this.state.author && this.state.title || (this.props.match.params.id && (this.state.title || this.state.body))
+        (this.state.categorie && this.state.body && this.state.author && this.state.title) || (this.props.match.params.id && (this.state.title || this.state.body))
     )
 
     render(){
 
-        const { body } = this.state;
         const { id } = this.props.match.params;
 
         return (

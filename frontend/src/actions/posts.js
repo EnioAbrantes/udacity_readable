@@ -1,4 +1,4 @@
-import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getComments, deleteComment, setCommentVote, saveComment, updateComment, getSpecificPost } from '../utils/api'
+import { setPostVote, getPostsFromCategory, savePost, deletePost, updatePost, getSpecificPost } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { uuidv4 } from '../utils/IDGenerator'
 
@@ -47,7 +47,6 @@ function postVote (post) {
 export function handlePostVote (info) {
     return (dispatch) => {
         dispatch(postVote(info))
-        console.log("info" + info.id)
         return setPostVote(info)
         .then((post) => dispatch(postVote(post)))
         .catch((e) => {
@@ -103,7 +102,6 @@ export function handlePostsFromCategory (category) {
         category
       })
         .then((post) => {
-            console.log("newpost"+ post.voteScore)
             dispatch(addPost(post))
         })
         .then(() => dispatch(hideLoading()))
@@ -145,7 +143,6 @@ export function handlePostsFromCategory (category) {
         id
       )
         .then((post) => {
-            console.log("newpost"+ post)
             dispatch(removePost(post.id))
         })
         .then(() => dispatch(hideLoading()))

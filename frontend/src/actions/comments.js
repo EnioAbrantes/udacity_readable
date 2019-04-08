@@ -70,7 +70,6 @@ function addComment (comment) {
         id
       )
         .then((comments) => {
-            console.log('commmmmmets' + comments)
             dispatch(ShowComments(comments))
         })
     }
@@ -86,7 +85,6 @@ function addComment (comment) {
   export function handleCommentVote (info) {
       return (dispatch) => {
           dispatch(commentVote(info))
-          console.log("info" + info.id)
           return setCommentVote(info)
           .then((comment) => dispatch(commentVote(comment)))
           .catch((e) => {

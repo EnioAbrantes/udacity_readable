@@ -15,7 +15,6 @@ class EditPost extends Component{
 
     handleChangeBody = (e) => {
         const body = e.target.value
-        console.log(body)
         this.setState({
             body
         })
@@ -23,21 +22,18 @@ class EditPost extends Component{
 
     handleChangeTitle = (e) => {
         const title = e.target.value
-        console.log(title)
         this.setState({
             title
         })
     }
     handleChangeCategorie = (e) => {
         const categorie = e.target.value
-        console.log(categorie)
         this.setState({
             categorie
         })
     }
     handleChangeAuthor = (e) => {
         const author = e.target.value
-        console.log(author)
         this.setState({
             author
         })

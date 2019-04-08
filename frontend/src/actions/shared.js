@@ -1,6 +1,5 @@
-import { getCategories, getPosts, setPostVote} from '../utils/api'
+import { getCategories, getPosts } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
-import { receiveComments } from '../actions/comments'
 import { receivePosts } from '../actions/posts'
 
 

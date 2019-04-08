@@ -27,7 +27,6 @@ export function getPosts () {
 }
 
 export function setPostVote (option) {
-  console.log("voteapi" + option.vote)
   return fetch(`${server}/posts/${option.id}`,{ 
     method: 'post',
     headers: {
@@ -93,7 +92,6 @@ export function updatePost (id, params) {
 }
 
 export function setCommentVote (option) {
-  console.log("voteapi" + option.vote)
   return fetch(`${server}/comments/${option.id}`,{ 
     method: 'post',
     headers: {

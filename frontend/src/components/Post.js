@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handlePostVote, handleDeletePost } from '../actions/posts'
 import { handleCommentVote, handleShowComments, handleDeleteComment } from '../actions/comments'
-import { Card, CardTitle, CardText, Col, Collapse, Button, CardBody, UncontrolledCollapse  } from 'reactstrap';
-import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, FaRegTrashAlt, FaPodcast, FaReply, FaInfo } from "react-icons/fa";
-import { recoverDate } from '../utils/RecoverDate'
-import { Link } from 'react-router-dom'
-import { AvField, AvGroup } from 'availity-reactstrap-validation';
-import Comment from './Comment';
+import { Col } from 'reactstrap';
 import PostDetails from './PostDetails';
 
 class Post extends Component {

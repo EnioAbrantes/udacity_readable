@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { handleInitialCategories, handleInitialPosts} from '../actions/shared'
-import { Button, Col, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledButtonDropdown } from 'reactstrap';
+import { Button, Col, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledButtonDropdown } from 'reactstrap';
 import Post from './Post'
 import {handlePostsFromCategory, handleOrderPosts} from '../actions/posts'
-import comments from '../reducers/comments';
 import { Link } from 'react-router-dom'
 
 class Container extends Component {
