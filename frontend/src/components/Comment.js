@@ -3,6 +3,7 @@ import { AvForm, AvField} from 'availity-reactstrap-validation';
 import { connect } from 'react-redux'
 import { Button } from 'reactstrap';
 import { handleShowComments, handleAddComment, handleEditComment } from '../actions/comments'
+import { handleUpdateOnePost } from '../actions/posts'
 import { handleInitialPosts} from '../actions/shared'
 
 class Comment extends Component{
@@ -16,7 +17,9 @@ class Comment extends Component{
         //update the list of comments
         this.props.handleShowComments(this.props.id)
         //update the number of comments
-        this.props.handleInitialPosts()
+        this.props.handleUpdateOnePost(this.props.id)
+        //this.props.handleInitialPosts()
+
     }
 
     handleChangeBody = (e) => {
@@ -77,6 +80,7 @@ function mapDispatchToProps (dispatch) {
         handleEditComment : (id, body) => dispatch(handleEditComment(id, body)),
         handleShowComments : (id) => dispatch(handleShowComments(id)),
         handleInitialPosts : () => dispatch(handleInitialPosts()),
+        handleUpdateOnePost : (id) => dispatch(handleUpdateOnePost(id)),
     })
 }
 

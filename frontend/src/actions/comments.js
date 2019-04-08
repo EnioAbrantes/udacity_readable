@@ -84,7 +84,6 @@ function addComment (comment) {
   
   export function handleCommentVote (info) {
       return (dispatch) => {
-          dispatch(commentVote(info))
           return setCommentVote(info)
           .then((comment) => dispatch(commentVote(comment)))
           .catch((e) => {

@@ -154,6 +154,9 @@ class NewPost extends Component{
 }
 
 function mapStateToProps({ categories, posts }){
+    if(posts.length === 1){
+        posts = posts[0]
+    } 
     return {
       categories : Object.values(categories),
       posts

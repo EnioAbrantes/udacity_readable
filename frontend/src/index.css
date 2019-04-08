@@ -92,3 +92,8 @@ ul, ol, li {
 .all-posts{
   align-content: center;
 }
+
+.no-match{
+  text-align: center;
+  font-size: 50px;
+}

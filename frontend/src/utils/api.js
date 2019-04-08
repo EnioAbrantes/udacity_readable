@@ -35,6 +35,7 @@ export function setPostVote (option) {
     body: JSON.stringify({option : option.vote})
   })
     .then(res => res.json())
+    .then(data => data)
 }
 
 export function savePost (post) {

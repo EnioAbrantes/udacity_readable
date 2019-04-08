@@ -10,6 +10,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const ORDER_POST = 'ORDER_POST'
 export const RECEIVE_SPECIFIC_POST = 'RECEIVE_SPECIFIC_POST'
+export const UPDATE_ONE_POST = 'UPDATE_ONE_POST'
 
 
 export function receivePosts (posts){
@@ -37,6 +38,24 @@ export function handleReceivePost (id) {
   }
 }
 
+function updateOnePost (post) {
+  return {
+    type: UPDATE_ONE_POST,
+    post,
+  }
+}
+
+export function handleUpdateOnePost (id) {
+  return (dispatch) => {
+      return getSpecificPost(id)
+      .then((post) => dispatch(updateOnePost(post)))
+      .catch((e) => {
+          console.warn('Error in handleUpdateOnePost: ', e)
+          alert('Try again later.')
+      })
+  }
+}
+
 function postVote (post) {
     return {
       type: VOTE_POSTS,
@@ -46,7 +65,6 @@ function postVote (post) {
   
 export function handlePostVote (info) {
     return (dispatch) => {
-        dispatch(postVote(info))
         return setPostVote(info)
         .then((post) => dispatch(postVote(post)))
         .catch((e) => {

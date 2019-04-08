@@ -37,7 +37,7 @@ class PostDetails extends Component{
         this.props.handleDeletePost(id)
     }
 
-    handleRemoveComment = (id) => {
+    handleRemoveComment = (id, parentId) => {
         this.props.handleDeleteComment(id)
     }
 
@@ -67,8 +67,9 @@ class PostDetails extends Component{
         
         var  post  = this.props.match && this.props.match.params.post_id? this.props.posts : this.props.post
 
-        return(
-                <Card body outline color="primary">
+        return( <div>
+                { post.id
+                ?<Card body outline color="primary">
                     <CardTitle className="title">
                         <CardText>
                             <div className="icon-category">
@@ -115,7 +116,7 @@ class PostDetails extends Component{
                                         <div className="icon-category">
                                             {post.id === comment.parentId? comment.author: false}
                                             <FaRegEdit className='icon' onClick={() => this.toggleEditComment(comment.id)}/> 
-                                            <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id)} className='icon'/> 
+                                            <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id, comment.parentId)} className='icon'/> 
                                         </div>
 
                                     </CardBody>
@@ -141,6 +142,8 @@ class PostDetails extends Component{
                     </Collapse >
                     
                 </Card>
+                : <span style={{fontSize: '30px'}}> There is no post! =x</span>}
+            </div>
         )
     }
 }
@@ -159,6 +162,9 @@ function mapDispatchToProps (dispatch) {
 
   function mapStateToProps({ posts, comments }){
     let orderCommentsByVotes = Object.values(comments) && Object.values(comments).sort((a,b) => b.voteScore - a.voteScore)
+     if(posts.length === 1){
+        posts = posts[0]
+    } 
     return {
       comments : Object.values(orderCommentsByVotes),
       posts : posts,

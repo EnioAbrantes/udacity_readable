@@ -3,7 +3,8 @@ import NewPost from './NewPost'
 import Nav from './Nav'
 import Container from './Container'
 import PostDetails from './PostDetails'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import NoMatch from './NoMatch'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -11,11 +12,14 @@ class App extends Component {
       <Router>
         <div className="App">
           <Nav/>
-          <Route path='/' exact component={Container} />
-          <Route path='/post/addPost/new' exact component={NewPost} />
-          <Route path='/post/editPost/:id' exact component={NewPost} />
-          <Route path="/:categorie" exact component={Container} />
-          <Route path="/:category/:post_id" exact component={PostDetails} />
+            <Switch>
+              <Route path='/' exact component={Container} />
+              <Route path='/post/addPost/new' exact component={NewPost} />
+              <Route path='/post/editPost/:id' exact component={NewPost} />
+              <Route path="/:categorie" exact component={Container} />
+              <Route path="/:category/:post_id" exact component={PostDetails} />
+              <Route component={NoMatch}/>
+            </Switch>
         </div>
       </Router>
     );
