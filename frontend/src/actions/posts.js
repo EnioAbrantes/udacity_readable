@@ -180,14 +180,3 @@ export function handlePostsFromCategory (category) {
       return dispatch(orderPosts(posts))
     }
   }
-  
-/* 
-
-        PUT /comments/:id
-      USAGE:
-        Edit the details of an existing comment
-
-      PARAMS:
-        timestamp: timestamp. Get this however you want.
-        body: String
- */

@@ -10,7 +10,7 @@ export default function posts (state = {}, action) {
           return a.voteScore > b.voteScore ? 1 : 0}).reverse()
         }
     case VOTE_POSTS :
-      return Object.values(state).map((post) => (
+      return Object.values(state).length === 1 ? [action.post] : Object.values(state).map((post) => (
         post.id === action.post.id? action.post : post
       ))
     case RECEIVE_POSTS_CATEGORIES :
@@ -29,8 +29,7 @@ export default function posts (state = {}, action) {
         ...state,
       }
     case RECEIVE_SPECIFIC_POST :
-      //return action.post
-      return Object.values(state).filter((post) => post.id === action.post.id).map((post) => ( post )  )
+      return Object.values(state).length > 1? Object.values(state).filter((post) => post.id === action.post.id).map((post) => ( post )  ) : [action.post]
     case UPDATE_ONE_POST :
       return Object.values(state).map((post) => (
         post.id === action.post.id? action.post : post

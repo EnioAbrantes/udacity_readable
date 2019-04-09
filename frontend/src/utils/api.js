@@ -146,11 +146,3 @@ export function getSpecificPost (id) {
   })
     .then(post => post.json())
 }
-
-
-/* 
-
-       GET /posts/:id
-      USAGE:
-        Get the details of a single post
- */

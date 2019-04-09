@@ -5,7 +5,7 @@ import { FaCommentAlt, FaRegHandPointUp, FaRegHandPointDown, FaTh, FaRegEdit, Fa
 import { Card, CardTitle, CardText, Collapse, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { recoverDate } from '../utils/RecoverDate'
-import { handlePostVote, handleDeletePost } from '../actions/posts'
+import { handlePostVote, handleDeletePost, handleUpdateOnePost } from '../actions/posts'
 import { handleCommentVote, handleShowComments, handleDeleteComment } from '../actions/comments'
 import Comment from './Comment';
 
@@ -38,7 +38,12 @@ class PostDetails extends Component{
     }
 
     handleRemoveComment = (id, parentId) => {
-        this.props.handleDeleteComment(id)
+        new Promise(() =>
+            this.props.handleDeleteComment(id)
+        ).then(
+            setTimeout(() => this.props.handleUpdateOnePost(parentId),150)
+        )
+        
     }
 
     handleShowComments = (id) => {
@@ -116,7 +121,7 @@ class PostDetails extends Component{
                                         <div className="icon-category">
                                             {post.id === comment.parentId? comment.author: false}
                                             <FaRegEdit className='icon' onClick={() => this.toggleEditComment(comment.id)}/> 
-                                            <FaRegTrashAlt onClick={() => this.handleRemoveComment(comment.id, comment.parentId)} className='icon'/> 
+                                            <FaRegTrashAlt onClick={() => {this.handleRemoveComment(comment.id, comment.parentId) }} className='icon'/> 
                                         </div>
 
                                     </CardBody>
@@ -157,6 +162,7 @@ function mapDispatchToProps (dispatch) {
         handleShowComments : (id) => dispatch(handleShowComments(id)),
         handleDeleteComment : (id) => dispatch(handleDeleteComment(id)),
         handleReceivePost : (id) => dispatch(handleReceivePost(id)),
+        handleUpdateOnePost : (id) => dispatch(handleUpdateOnePost(id)),
     })
   }
 
@@ -165,6 +171,7 @@ function mapDispatchToProps (dispatch) {
      if(posts.length === 1){
         posts = posts[0]
     } 
+    
     return {
       comments : Object.values(orderCommentsByVotes),
       posts : posts,

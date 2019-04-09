@@ -4,7 +4,6 @@ export default function comments (state = {}, action) {
   switch(action.type) {
     case COMMENTS_POST :
         return {
-          ...state,
           ...action.comments,
         } 
       case VOTE_COMMENT :
